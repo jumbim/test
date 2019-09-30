@@ -1,0 +1,400 @@
+apiVersion: v1
+swaggerVersion: '1.2'
+basePath: 'http://ohedftgdb1:36335/TGMSAdminRest'
+resourcePath: /cbrs
+protocols:
+  - http
+apis:
+  - path: /v1/cbrs
+    operations:
+      - method: DELETE
+        summary: This API is to delete Single CBR
+        notes: Single CBR Delete
+        type: response
+        nickname: deleteCBR
+        authorizations: {}
+        parameters:
+          - name: x-ottg-caller-application
+            required: true
+            type: string
+            paramType: header
+          - name: x-ottg-caller-application-timestamp
+            required: false
+            type: string
+            format: date-time
+            paramType: header
+          - name: x-ottg-caller-application-host
+            required: false
+            type: string
+            paramType: header
+          - name: x-ottg-accept
+            required: false
+            type: MediaType
+            paramType: header
+            enum:
+              - application/json
+              - ' application/xml'
+          - name: x-ottg-agent
+            required: false
+            type: string
+            paramType: header
+          - name: x-ottg-operator
+            required: false
+            type: string
+            paramType: header
+          - name: senderAddress
+            description: Pass the SenderAddress to delete CBR details
+            required: true
+            type: string
+            paramType: query
+          - name: receiverAddress
+            description: Pass the RecevierAddress to delete CBR details
+            required: true
+            type: string
+            paramType: query
+          - name: docType
+            description: Pass the Doctype to delete CBR details
+            required: true
+            type: string
+            paramType: query
+          - name: additionalMetaData
+            description: Pass the AdditionalMetaData to delete CBR details
+            required: true
+            type: string
+            paramType: query
+          - name: serviceEndPoint
+            description: Pass the ServiceEndPoint to delete CBR details
+            required: true
+            type: string
+            paramType: query
+          - name: triggeringNode
+            description: Pass the TriggeringNode to delete CBR details
+            required: true
+            type: string
+            paramType: query
+          - name: ediaddress
+            description: CBR Delete associate with ediaddress
+            required: true
+            type: string
+            paramType: path
+        responseMessages:
+          - code: 200
+            message: CBR deleted successfully
+          - code: 404
+            message: 'CBR does not exist '
+          - code: 500
+            message: System Encountered error
+      - method: POST
+        summary: >-
+          Creating CBR for the passed
+          Sender,receiver,Aprf,additionalmetadata,triggeringNode,serviceEndpoint
+        notes: 'Create CBR by setting all the mandatory values in XML /JSON '
+        type: response
+        nickname: addCBR
+        authorizations: {}
+        parameters:
+          - name: x-ottg-caller-application
+            required: true
+            type: string
+            paramType: header
+          - name: x-ottg-caller-application-timestamp
+            required: false
+            type: string
+            format: date-time
+            paramType: header
+          - name: x-ottg-caller-application-host
+            required: false
+            type: string
+            paramType: header
+          - name: x-ottg-accept
+            required: false
+            type: MediaType
+            paramType: header
+            enum:
+              - application/json
+              - ' application/xml'
+          - name: x-ottg-content-type
+            required: false
+            type: MediaType
+            paramType: header
+            enum:
+              - application/json
+              - ' application/xml'
+          - name: x-ottg-agent
+            required: false
+            type: string
+            paramType: header
+          - name: x-ottg-operator
+            required: false
+            type: string
+            paramType: header
+          - name: body
+            description: >-
+              Pass the mandatory value to create CBR -
+              Sender,receiver,Aprf,additionalmetadata,triggeringNode,serviceEndpoint
+            required: true
+            type: cbrs
+            paramType: body
+        responseMessages:
+          - code: 201
+            message: CBR created Successfully
+          - code: 400
+            message: Any Mandatory values are not supplied
+          - code: 409
+            message: If CBR already available in DB or any Invalid Value supplied
+      - method: PUT
+        summary: >-
+          This API is to update CBR for the passed
+          Sender,receiver,Aprf,additionalmetadata,triggeringNode,serviceEndpoint
+        notes: 'Update CBR by setting all the mandatory values in XML /JSON '
+        type: cbrs
+        nickname: updateCBR
+        authorizations: {}
+        parameters:
+          - name: x-ottg-caller-application
+            required: true
+            type: string
+            paramType: header
+          - name: x-ottg-caller-application-timestamp
+            required: false
+            type: string
+            format: date-time
+            paramType: header
+          - name: x-ottg-caller-application-host
+            required: false
+            type: string
+            paramType: header
+          - name: x-ottg-accept
+            required: false
+            type: MediaType
+            paramType: header
+            enum:
+              - application/json
+              - ' application/xml'
+          - name: x-ottg-content-type
+            required: false
+            type: MediaType
+            paramType: header
+            enum:
+              - application/json
+              - ' application/xml'
+          - name: x-ottg-agent
+            required: false
+            type: string
+            paramType: header
+          - name: x-ottg-operator
+            required: false
+            type: string
+            paramType: header
+          - name: body
+            description: >-
+              Pass the mandatory value to updte CBR -
+              Sender,receiver,Aprf,additionalmetadata,triggeringNode,serviceEndpoint
+            required: true
+            type: cbrs
+            paramType: body
+        responseMessages:
+          - code: 202
+            message: CBR updated Successfully
+          - code: 400
+            message: Any Mandatory values are not supplied
+models:
+  response:
+    id: response
+    properties:
+      responsemessage:
+        type: string
+      responsecode:
+        type: string
+      url:
+        type: string
+  MediaType:
+    id: MediaType
+    properties:
+      wildcardSubtype:
+        type: boolean
+      wildcardType:
+        type: boolean
+      parameters:
+        $ref: 'Map[string,string]'
+      subtype:
+        type: string
+      type:
+        type: string
+  CBRParamOption:
+    id: CBRParamOption
+    required:
+      - paramKey
+    properties:
+      paramOperations:
+        type: string
+        enum:
+          - ADD
+          - UPDATE
+          - DELETE
+          - NOUPDATE
+      paramVal:
+        type: string
+      paramKey:
+        type: string
+  Date:
+    id: Date
+    properties:
+      timezoneOffset:
+        type: integer
+        format: int32
+      day:
+        type: integer
+        format: int32
+      year:
+        type: integer
+        format: int32
+      time:
+        type: integer
+        format: int64
+      seconds:
+        type: integer
+        format: int32
+      month:
+        type: integer
+        format: int32
+      minutes:
+        type: integer
+        format: int32
+      hours:
+        type: integer
+        format: int32
+      date:
+        type: integer
+        format: int32
+  Cbrdetails:
+    id: Cbrdetails
+    required:
+      - receiveraddress
+      - senderaddress
+      - triggeringNode
+      - additionalMetaData
+      - serviceEndPoint
+      - doctype
+      - receiverUserID
+      - senderUserID
+      - paramMeterKey
+    properties:
+      receiveraddress:
+        type: string
+      senderaddress:
+        type: string
+      cBRParamOption:
+        type: array
+        items:
+          $ref: CBRParamOption
+      timeOut:
+        type: string
+      processingOrder:
+        type: string
+      triggeringNode:
+        type: string
+      additionalMetaData:
+        type: string
+      serviceEndPoint:
+        type: string
+      doctype:
+        type: string
+      eventType:
+        type: string
+      status:
+        type: string
+      message:
+        type: string
+      receiverUserID:
+        type: string
+      senderUserID:
+        type: string
+      cbrSeqNum:
+        type: string
+      modified:
+        type: string
+      paramMeterOperations:
+        type: string
+        enum:
+          - ADD
+          - UPDATE
+          - DELETE
+          - NOUPDATE
+      paramMeterVal:
+        type: string
+      paramMeterKey:
+        type: string
+      isDataRoutingChanged:
+        type: string
+      isParamChanged:
+        type: string
+      created:
+        type: string
+      agent:
+        type: string
+      operator:
+        type: string
+  Cbrvo:
+    id: Cbrvo
+    required:
+      - receiveraddress
+      - senderaddress
+      - triggeringNode
+      - additionalMetaData
+      - serviceEndPoint
+      - doctype
+    properties:
+      receiveraddress:
+        type: string
+      senderaddress:
+        type: string
+      cBRParamOption:
+        type: array
+        items:
+          $ref: CBRParamOption
+      timeOut:
+        type: string
+      processingOrder:
+        type: string
+      triggeringNode:
+        type: string
+      additionalMetaData:
+        type: string
+      serviceEndPoint:
+        type: string
+      doctype:
+        type: string
+      eventType:
+        type: string
+      status:
+        type: string
+      message:
+        type: string
+  cbrs:
+    id: cbrs
+    properties:
+      paramOperations:
+        type: array
+        items:
+          type: string
+      cBRParamOption:
+        type: array
+        items:
+          $ref: CBRParamOption
+      successfullyAddedCBRCount:
+        type: string
+      failureCount:
+        type: string
+      validCBRCount:
+        type: string
+      totalNumberOfRequest:
+        type: string
+      cbrdetails:
+        type: array
+        items:
+          $ref: Cbrdetails
+      cbrvo:
+        type: array
+        items:
+          $ref: Cbrvo
