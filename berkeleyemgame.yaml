@@ -1,0 +1,17 @@
+apiVersion: '2'
+swaggerVersion: '1.2'
+basePath: http://localhost:3000/api/v2
+resourcePath: "/status"
+apis:
+- path: "/status"
+  operations:
+  - description: Returns the status of the server (up or down). Does not require authentication.
+    path: "/status"
+    nickname: "/status"
+    notes: Returns the status of the server (up or down). Does not require authentication.
+    summary: Returns the status of the server (up or down). Does not require authentication.
+    parameters: []
+    errorResponses: []
+    method: GET
+    type: void
+models: {}

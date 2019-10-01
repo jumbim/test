@@ -1,0 +1,199 @@
+apiVersion: v1
+swaggerVersion: '1.1'
+basePath: https://api.pearson.com/v2/dictionaries
+resourcePath: "/"
+apis:
+- path: "/entries"
+  description: Operations on entries
+  operations:
+  - httpMethod: GET
+    summary: List entries available in dictionaries
+    responseClass: void
+    nickname: listEntries
+    parameters:
+    - name: headword
+      description: Search for entries with the given headword
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: related_words
+      description: Search for entries that are related with the given word
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: synonyms
+      description: Search for entries that are synonyms for the given word
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: phrasal_verbs
+      description: Search for entries with matching phrasal verbs
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: part_of_speech
+      description: Limit search results to entries with the matching part of speech
+        (ie 'noun','verb')
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: images
+      description: Limit search to entries containing image links (currently only
+        'picture' is supported)
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: audio
+      description: Limit search to entries containing audio links (can be 'effects','pronunciation'
+        or 'example')
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: search
+      description: 'Generic text search across all entries (searchs all entry fields) '
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: offset
+      description: Zero based index of where to start in the collection
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: int
+    - name: limit
+      description: Set the limit of the number of items returned in the collection
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: int
+    - name: jsonp
+      description: JSON callback wrapper name
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+- path: "/{dictionary}/entries"
+  description: Operations on entries
+  operations:
+  - httpMethod: GET
+    summary: List entries available in the given dictionary
+    responseClass: void
+    nickname: listDictionaryEntries
+    parameters:
+    - name: dictionary
+      description: Dictionary to list entries for
+      paramType: path
+      required: true
+      allowMultiple: false
+      allowableValues:
+        valueType: LIST
+        values:
+        - ldoce5
+        - lasde
+        - ldec
+        - wordwise
+        - laesd
+        - leasd
+        - laad3
+        - laes
+        - lase
+        - brep
+        - brpe
+      dataType: string
+    - name: headword
+      description: Search for entries with the given headword
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: related_words
+      description: Search for entries that are related with the given word
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: synonyms
+      description: Search for entries that are synonyms for the given word
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: phrasal_verbs
+      description: Search for entries with matching phrasal verbs
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: part_of_speech
+      description: Limit search results to entries with the matching part of speech
+        (ie 'noun','verb')
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: images
+      description: Limit search to entries containing image links (currently only
+        'picture' is supported)
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: audio
+      description: Limit search to entries containing audio links (can be 'effects','pronunciation'
+        or 'example')
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: search
+      description: 'Generic text search across all entries (searchs all entry fields) '
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+    - name: offset
+      description: Zero based index of where to start in the collection
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: int
+    - name: limit
+      description: Set the limit of the number of items returned in the collection
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: int
+    - name: jsonp
+      description: JSON callback wrapper name
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
+- path: "/entries/{Id}"
+  description: Operations on entries
+  operations:
+  - httpMethod: GET
+    summary: Show selected entry
+    responseClass: void
+    nickname: showEntry
+    parameters:
+    - name: Id
+      description: Id of the entry in the dictionary
+      paramType: path
+      required: true
+      allowMultiple: false
+      dataType: string
+    - name: jsonp
+      description: JSON callback wrapper name
+      paramType: query
+      required: false
+      allowMultiple: false
+      dataType: string
